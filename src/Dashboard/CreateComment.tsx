@@ -5,7 +5,7 @@ const CreateComment: React.FC = () => {
   const [username, setUsername] = useState("");
   const [comment, setComment] = useState("");
 
-  const [addComment, { data, isLoading, isSuccess, isError }] =
+  const [addComment, { isLoading, isSuccess, isError }] =
     useAddCommentMutation();
 
   let Contain = null;

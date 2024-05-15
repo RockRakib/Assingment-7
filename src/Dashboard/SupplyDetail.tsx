@@ -27,7 +27,7 @@ export default function SupplyDetails() {
   return (
     <div className="flex justify-center items-center mt-40">
       <div className="overflow-hidden  rounded max-w-3xl bg-white text-slate-500 shadow-md shadow-slate-200">
-        {/*  <!-- Image --> */}
+        {content}
         <figure>
           <img
             src={data?.imageUrl}

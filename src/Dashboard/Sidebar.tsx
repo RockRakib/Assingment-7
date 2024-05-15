@@ -18,7 +18,6 @@ export default function SideNavigationBasic() {
         }`}
         aria-haspopup="menu"
         aria-label="Side navigation"
-        aria-expanded={isSideNavOpen ? " true" : "false"}
         aria-controls="nav-menu-1"
         onClick={() => setIsSideNavOpen(!isSideNavOpen)}
       >
