@@ -1,15 +1,21 @@
 import { useGetCommentsQuery } from "@/features/api/apiSlice";
 import CreateComment from "./CreateComment";
-import CommentBox from "./commentBox";
 // type comment = {
 //   timestamp: string;
 
 //   username: string;
 //   content: string;
 // };
+interface Items {
+  _id: string;
+  comment: string;
+  timestamp: string;
+  username: string;
+}
 
 const Comment: React.FC = () => {
   const { data, isLoading, isError } = useGetCommentsQuery(undefined);
+  console.log(data);
 
   if (isLoading) {
     <h1>this is loading</h1>;
@@ -40,8 +46,17 @@ const Comment: React.FC = () => {
                     </h1>
                   </div>
                   <div className="flex flex-wrap -m-4">
-                    {data?.map((item) => (
-                      <CommentBox key={item.id} comment={item} />
+                    {data?.map((item: Items) => (
+                      <div className="lg:w-1/3 sm:w-1/2 p-4">
+                        <div className="flex relative">
+                          <div className="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white  hover:opacity-100">
+                            <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
+                              {item.username}
+                            </h1>
+                            <p className="leading-relaxed">{item.comment}</p>
+                          </div>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>

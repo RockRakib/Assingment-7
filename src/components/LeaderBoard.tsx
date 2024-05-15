@@ -1,8 +1,20 @@
 import { useGetLeaderBoardQuery } from "@/features/api/apiSlice";
+interface Donation {
+  amount: number;
+  category: string;
+  description: string;
+
+  title: string;
+
+  _id: string;
+}
 
 export default function LeaderBoard() {
   const { data, isLoading, isError, isSuccess } = useGetLeaderBoardQuery(null);
-  const donor = data?.slice().sort((a, b) => b.amount - a.amount);
+
+  const donor = data
+    ?.slice()
+    .sort((a: Donation, b: Donation) => b.amount - a.amount);
   let content = undefined;
   if (isLoading) {
     content = <h1>this is loading</h1>;
@@ -16,13 +28,11 @@ export default function LeaderBoard() {
   return (
     <>
       <div className="my-6 text-center">
+        {content}
         <h2 className="text-2xl font-semibold">Top Donors</h2>
       </div>
       <div className="w-full mx-6 overflow-x-auto">
-        <table
-          className="w-full text-left border border-collapse rounded sm:border-separate border-slate-200"
-          cellspacing="0"
-        >
+        <table className="w-full text-left border border-collapse rounded sm:border-separate border-slate-200">
           <tbody>
             <tr>
               <th
@@ -51,8 +61,8 @@ export default function LeaderBoard() {
               </th>
             </tr>
 
-            {donor?.map((item, index) => (
-              <tr key={index}>
+            {donor?.map((item: Donation) => (
+              <tr key={item._id}>
                 <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">
                   {item.title}
                 </td>

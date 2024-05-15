@@ -21,7 +21,7 @@ export default function SupplyDetails() {
   }
 
   if (!isLoading && !isError && data) {
-    console.log(data);
+    content = <h1>data not found</h1>;
   }
 
   return (
