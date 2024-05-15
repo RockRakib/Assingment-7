@@ -13,8 +13,7 @@ import { useAddSupplyMutation } from "@/features/api/apiSlice";
 import { FormEvent, useState } from "react";
 
 export function CardModal() {
-  const [addSupply, { data, isSuccess, isError, isLoading }] =
-    useAddSupplyMutation();
+  const [addSupply, { isSuccess, isError, isLoading }] = useAddSupplyMutation();
   const [title, setTitle] = useState("");
   const [category, setCategoty] = useState("");
   const [amount, setAmount] = useState("");

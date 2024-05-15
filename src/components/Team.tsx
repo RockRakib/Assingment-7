@@ -1,8 +1,18 @@
 import { useGetVolunteerQuery } from "@/features/api/apiSlice";
 import { VolunteerModal } from "./VolunteerModal";
+interface JobApplication {
+  email: string;
+  location: string;
+  name: string;
+  phoneNumber: string;
+
+  _id: string;
+}
 
 const Team: React.FC = () => {
   const { data, isError, isLoading, isSuccess } = useGetVolunteerQuery(null);
+  console.log(data);
+
   let content = undefined;
   if (isLoading) {
     content = <h1>this is loading</h1>;
@@ -16,6 +26,7 @@ const Team: React.FC = () => {
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
+        {isError && content}
         <div className="flex flex-col text-center w-full mb-20">
           <h1 className="text-2xl font-medium title-font mb-4 text-gray-900 tracking-widest">
             Our Volunteer
@@ -29,8 +40,8 @@ const Team: React.FC = () => {
           </p>
         </div>
         <div className="flex flex-wrap -m-4">
-          {data?.map((item) => (
-            <div className="p-4 lg:w-1/2">
+          {data?.map((item: JobApplication) => (
+            <div className="p-4 lg:w-1/2" key={item._id}>
               <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                 <div className="flex-grow sm:pl-8">
                   <h2 className="title-font font-medium text-lg text-gray-900">

@@ -13,7 +13,7 @@ import { useAddVolunteerMutation } from "@/features/api/apiSlice";
 import { FormEvent, useState } from "react";
 
 export function VolunteerModal() {
-  const [addVolunteer, { data, isSuccess, isError, isLoading }] =
+  const [addVolunteer, { isSuccess, isError, isLoading }] =
     useAddVolunteerMutation();
 
   const [name, setName] = useState("");

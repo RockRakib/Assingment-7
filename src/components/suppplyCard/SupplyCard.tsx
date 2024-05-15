@@ -2,8 +2,18 @@ import { useGetSuppliesQuery } from "@/features/api/apiSlice";
 import Container from "@/lib/container";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import CardDetails from "./CardDetails";
+
+import { Link } from "react-router-dom";
 import { CardModal } from "./CardModal";
+interface Donation {
+  amount: number;
+  category: string;
+  description: string;
+  imageUrl: string;
+  title: string;
+
+  _id: string;
+}
 
 export default function SupplyCard() {
   const [showAll, setShowAll] = useState(true);
@@ -12,6 +22,7 @@ export default function SupplyCard() {
     isLoading,
     isError,
   } = useGetSuppliesQuery(undefined);
+
   let content = undefined;
   if (isLoading) {
     content = <h1>this is loading</h1>;
@@ -34,10 +45,78 @@ export default function SupplyCard() {
       {}
       <div className="grid lg:grid-cols-3  gap-10">
         {showAll
-          ? supplyPosts
-              ?.slice(0, 6)
-              .map((s) => <CardDetails key={s._id} s={s} />)
-          : supplyPosts?.map((s) => <CardDetails key={s.id} s={s} />)}
+          ? supplyPosts?.slice(0, 6).map((s: Donation) => (
+              <div
+                key={s._id}
+                className="overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200"
+              >
+                {/*  <!-- Image --> */}
+                <figure>
+                  <img
+                    src={s.imageUrl}
+                    alt="card image"
+                    className="aspect-video "
+                  />
+                </figure>
+                {/*  <!-- Body--> */}
+                <div className="p-6">
+                  <header className="mb-4">
+                    <h3 className="text-xl font-medium text-slate-700">
+                      {s.title}
+                    </h3>
+                    <p className=" text-slate-400"> {s.amount}</p>
+                  </header>
+                  <p>{s.category}</p>
+                </div>
+                {/*  <!-- Action base sized basic button --> */}
+                <div className="flex justify-end p-6 pt-0">
+                  <Link to={`/supplies/${s._id}`}>
+                    <button
+                      onClick={() => console.log(s._id)}
+                      className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-gray-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-gray-600 focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
+                    >
+                      <span>View Details</span>
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))
+          : supplyPosts?.map((s: Donation) => (
+              <div
+                key={s._id}
+                className="overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200"
+              >
+                {/*  <!-- Image --> */}
+                <figure>
+                  <img
+                    src={s.imageUrl}
+                    alt="card image"
+                    className="aspect-video "
+                  />
+                </figure>
+                {/*  <!-- Body--> */}
+                <div className="p-6">
+                  <header className="mb-4">
+                    <h3 className="text-xl font-medium text-slate-700">
+                      {s.title}
+                    </h3>
+                    <p className=" text-slate-400"> {s.amount}</p>
+                  </header>
+                  <p>{s.category}</p>
+                </div>
+                {/*  <!-- Action base sized basic button --> */}
+                <div className="flex justify-end p-6 pt-0">
+                  <Link to={`/supplies/${s._id}`}>
+                    <button
+                      onClick={() => console.log(s._id)}
+                      className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-gray-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-gray-600 focus:bg-gray-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:shadow-none"
+                    >
+                      <span>View Details</span>
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))}
       </div>
       {content}
       <Button
